@@ -15,6 +15,7 @@ class FlickDisplayManager extends ChangeNotifier {
   bool _showPlayerControls = true;
   bool _showForwardSeek = false;
   bool _showBackwardSeek = false;
+  SubtitleStyle _subtitleStyle = SubtitleStyle();
 
   /// Show player controls or not.
   bool get showPlayerControls => _showPlayerControls;
@@ -24,6 +25,9 @@ class FlickDisplayManager extends ChangeNotifier {
 
   // Show backward seek icon or not.
   bool get showBackwardSeek => _showBackwardSeek;
+
+  // The current style for subtitles
+  SubtitleStyle get subtitleStyle => _subtitleStyle;
 
   /// User video tap action.
   handleVideoTap() {

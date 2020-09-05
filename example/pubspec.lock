@@ -220,9 +220,11 @@ packages:
   subtitle_wrapper_package:
     dependency: transitive
     description:
-      name: subtitle_wrapper_package
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: "917c4adc4f5e9bd37fd275cf5965cf4a8ae85940"
+      resolved-ref: "917c4adc4f5e9bd37fd275cf5965cf4a8ae85940"
+      url: "https://github.com/ayush221b/flutter_subtitle_wrapper.git"
+    source: git
     version: "1.0.2"
   term_glyph:
     dependency: transitive

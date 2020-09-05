@@ -15,6 +15,8 @@ class FlickControlManager extends ChangeNotifier {
   bool _isMute = false;
   bool _isFullscreen = false;
   bool _isAutoPause = false;
+  List<FlickSubtitle> _subtitles = [];
+  FlickSubtitle _selectedSubtitle;
 
   /// Is player in full-screen.
   bool get isFullscreen => _isFullscreen;
@@ -22,9 +24,34 @@ class FlickControlManager extends ChangeNotifier {
   /// Is player mute.
   bool get isMute => _isMute;
 
+  /// The list of subtitles supplied to flick manager
+  List<FlickSubtitle> get subtitles => _subtitles;
+
+  /// The subtitle which is currently selected for playback
+  FlickSubtitle get selectedSubtitle => _selectedSubtitle;
+
   VideoPlayerController get _videoPlayerController =>
       _flickManager.flickVideoManager.videoPlayerController;
   bool get _isPlaying => _flickManager.flickVideoManager.isPlaying;
+
+  /// Set available subtitles for this video
+  void setSubtitles({@required List<FlickSubtitle> videoSubtitles}) {
+    _subtitles = videoSubtitles;
+    _notify();
+  }
+
+  /// Select the subtitle for playback
+  /// Please ensure that the subtitle being supplied here is a part
+  /// of the subtitles list provided
+  void selectSubtitle({@required FlickSubtitle subtitleToSelect}) {
+    if (subtitleToSelect == null || !_subtitles.contains(subtitleToSelect))
+      return;
+    _selectedSubtitle = subtitleToSelect;
+    _notify();
+  }
+
+  /// This method will hide any subtitle that is currently being displayed
+  void hideSubtitle() {}
 
   /// Enter full-screen.
   void enterFullscreen() {

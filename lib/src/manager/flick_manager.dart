@@ -1,7 +1,9 @@
 library flick_manager;
 
 import 'dart:async';
+import 'package:flick_video_player/src/subtitles/flick_subtitle.dart';
 import 'package:flutter/material.dart';
+import 'package:subtitle_wrapper_package/data/models/style/subtitle_style.dart';
 import 'package:video_player/video_player.dart';
 
 part 'video_manager.dart';
@@ -15,6 +17,7 @@ class FlickManager {
     this.onVideoEnd,
     GetPlayerControlsTimeout getPlayerControlsTimeout,
     @required VideoPlayerController videoPlayerController,
+    this.respectAspectRatioInFullScreen = true,
 
     /// Auto initialize the video.
     bool autoInitialize = true,
@@ -34,6 +37,8 @@ class FlickManager {
     );
     _flickVideoManager._handleChangeVideo(videoPlayerController);
   }
+
+  final bool respectAspectRatioInFullScreen;
 
   FlickVideoManager _flickVideoManager;
   FlickControlManager _flickControlManager;

@@ -195,7 +195,7 @@
     },
     {
       "name": "subtitle_wrapper_package",
-      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/hosted/pub.dartlang.org/subtitle_wrapper_package-1.0.2",
+      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/git/flutter_subtitle_wrapper-917c4adc4f5e9bd37fd275cf5965cf4a8ae85940/",
       "packageUri": "lib/",
       "languageVersion": "2.2"
     },
@@ -254,7 +254,7 @@
       "languageVersion": "2.1"
     }
   ],
-  "generated": "2020-09-05T12:19:11.888580Z",
+  "generated": "2020-09-05T13:16:18.568516Z",
   "generator": "pub",
   "generatorVersion": "2.9.1"
 }

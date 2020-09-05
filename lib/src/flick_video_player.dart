@@ -141,8 +141,28 @@ class _FlickVideoPlayerState extends State<FlickVideoPlayer> {
 
   _setPreferredOrientation() {
     if (_isFullscreen) {
-      SystemChrome.setPreferredOrientations(
-          widget.preferredDeviceOrientationFullscreen);
+      if (flickManager.respectAspectRatioInFullScreen ?? false) {
+        final aspectRatio = flickManager?.flickVideoManager
+                ?.videoPlayerController?.value?.aspectRatio ??
+            1;
+        if (aspectRatio < 1) {
+          SystemChrome.setPreferredOrientations([
+            DeviceOrientation.portraitUp,
+            DeviceOrientation.portraitDown,
+          ]);
+        } else if (aspectRatio > 1) {
+          SystemChrome.setPreferredOrientations([
+            DeviceOrientation.landscapeLeft,
+            DeviceOrientation.landscapeRight,
+          ]);
+        } else {
+          SystemChrome.setPreferredOrientations(
+              widget.preferredDeviceOrientationFullscreen);
+        }
+      } else {
+        SystemChrome.setPreferredOrientations(
+            widget.preferredDeviceOrientationFullscreen);
+      }
     } else {
       SystemChrome.setPreferredOrientations(widget.preferredDeviceOrientation);
     }
