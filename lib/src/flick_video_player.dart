@@ -140,15 +140,24 @@ class _FlickVideoPlayerState extends State<FlickVideoPlayer> {
     BuildContext context,
     Animation<double> animation,
   ) {
-    return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      body: Container(
-        alignment: Alignment.center,
-        color: Colors.black,
-        child: FlickManagerBuilder(
-          flickManager: flickManager,
-          child: widget.flickVideoWithControlsFullscreen ??
-              widget.flickVideoWithControls,
+    return WillPopScope(
+      onWillPop: () async {
+        if (_isFullscreen) {
+          flickManager?.flickControlManager?.exitFullscreen();
+          return false;
+        }
+        return true;
+      },
+      child: Scaffold(
+        resizeToAvoidBottomPadding: false,
+        body: Container(
+          alignment: Alignment.center,
+          color: Colors.black,
+          child: FlickManagerBuilder(
+            flickManager: flickManager,
+            child: widget.flickVideoWithControlsFullscreen ??
+                widget.flickVideoWithControls,
+          ),
         ),
       ),
     );
