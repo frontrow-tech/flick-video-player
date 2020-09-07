@@ -5,11 +5,18 @@ part of flick_manager;
 /// FlickControlManager helps user interact with the player,
 /// like change play state, change volume, seek video, enter/exit full-screen.
 class FlickControlManager extends ChangeNotifier {
-  FlickControlManager({
-    @required FlickManager flickManager,
-  }) : _flickManager = flickManager;
+  FlickControlManager(
+      {@required FlickManager flickManager,
+      @required this.onPause,
+      @required this.onPlay})
+      : _flickManager = flickManager;
 
   final FlickManager _flickManager;
+
+  final void Function(VideoPlayerController) onPlay;
+
+  final void Function(VideoPlayerController) onPause;
+
   bool _mounted = true;
 
   bool _isMute = false;
@@ -99,6 +106,7 @@ class FlickControlManager extends ChangeNotifier {
     await _videoPlayerController.play();
     _flickManager.flickDisplayManager.handleShowPlayerControls();
     _notify();
+    if (onPlay != null) onPlay(_videoPlayerController);
   }
 
   /// Auto-resume video.
@@ -117,6 +125,7 @@ class FlickControlManager extends ChangeNotifier {
     _flickManager.flickDisplayManager
         .handleShowPlayerControls(showWithTimeout: false);
     _notify();
+    if (onPause != null) onPause(_videoPlayerController);
   }
 
   /// Use this to programmatically pause the video.
