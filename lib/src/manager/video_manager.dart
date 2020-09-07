@@ -138,17 +138,16 @@ class FlickVideoManager extends ChangeNotifier {
           .seekTo(Duration(hours: 0, minutes: 0, seconds: 0, milliseconds: 0));
     }
 
-    if (reseekPosition &&
-        currentPosition != null &&
-        currentPosition != Duration.zero) {
-      videoPlayerController.seekTo(currentPosition);
-    }
-
     // Initialize the video if not initialized
     // (User can initialize the video while passing to flick).
     if (!videoPlayerController.value.initialized && autoInitialize) {
       try {
         await videoPlayerController.initialize();
+        if (reseekPosition &&
+            currentPosition != null &&
+            currentPosition != Duration.zero) {
+          videoPlayerController.seekTo(currentPosition);
+        }
       } catch (err) {
         _flickManager._handleErrorInVideo();
       }
