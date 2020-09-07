@@ -29,6 +29,12 @@ class FlickDisplayManager extends ChangeNotifier {
   // The current style for subtitles
   SubtitleStyle get subtitleStyle => _subtitleStyle;
 
+  void setSubtitleStyle(SubtitleStyle value) {
+    if (value == null) return;
+    _subtitleStyle = value;
+    _notify();
+  }
+
   /// User video tap action.
   handleVideoTap() {
     // If playerControls are showing,
