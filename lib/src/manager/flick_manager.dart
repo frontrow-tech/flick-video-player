@@ -70,7 +70,9 @@ class FlickManager {
   /// Current playing video will be paused and disposed,
   /// if [videoChangeDuration] is passed video change will happen after that duration.
   handleChangeVideo(VideoPlayerController videoPlayerController,
-      {Duration videoChangeDuration, TimerCancelCallback timerCancelCallback}) {
+      {Duration videoChangeDuration,
+      bool reseekPosition = false,
+      TimerCancelCallback timerCancelCallback}) {
     _flickVideoManager._handleChangeVideo(videoPlayerController,
         videoChangeDuration: videoChangeDuration,
         timerCancelCallback: timerCancelCallback);

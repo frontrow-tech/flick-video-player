@@ -27,6 +27,7 @@ class FlickVideoPlayer extends StatefulWidget {
     ],
     this.wakelockEnabled = true,
     this.wakelockEnabledFullscreen = true,
+    this.overrideOrientations,
   }) : super(key: key);
 
   final FlickManager flickManager;
@@ -36,6 +37,9 @@ class FlickVideoPlayer extends StatefulWidget {
 
   /// Widget to render video and controls in full-screen.
   final Widget flickVideoWithControlsFullscreen;
+
+  /// Override all orientations
+  final List<DeviceOrientation> overrideOrientations;
 
   /// SystemUIOverlay to show.
   ///
@@ -72,7 +76,9 @@ class FlickVideoPlayer extends StatefulWidget {
 class _FlickVideoPlayerState extends State<FlickVideoPlayer> {
   FlickManager flickManager;
   bool _isFullscreen = false;
-  OverlayEntry _overlayEntry;
+
+  List<DeviceOrientation> get _overrideOrientations =>
+      widget.overrideOrientations ?? <Orientation>[];
 
   @override
   void initState() {
@@ -122,17 +128,55 @@ class _FlickVideoPlayerState extends State<FlickVideoPlayer> {
     _isFullscreen = true;
     _setPreferredOrientation();
     _setSystemUIOverlays();
-    _overlayEntry = OverlayEntry(builder: (context) {
-      return Scaffold(
-        body: FlickManagerBuilder(
+
+    final TransitionRoute<Null> route = PageRouteBuilder<Null>(
+      pageBuilder: _fullScreenRoutePageBuilder,
+    );
+
+    Navigator.of(context, rootNavigator: true).push(route);
+  }
+
+  Widget _buildFullScreenVideo(
+    BuildContext context,
+    Animation<double> animation,
+  ) {
+    return Scaffold(
+      resizeToAvoidBottomPadding: false,
+      body: Container(
+        alignment: Alignment.center,
+        color: Colors.black,
+        child: FlickManagerBuilder(
           flickManager: flickManager,
           child: widget.flickVideoWithControlsFullscreen ??
               widget.flickVideoWithControls,
         ),
-      );
-    });
+      ),
+    );
+  }
 
-    Overlay.of(context).insert(_overlayEntry);
+  AnimatedWidget _defaultRoutePageBuilder(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+  ) {
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (BuildContext context, Widget child) {
+        return _buildFullScreenVideo(context, animation);
+      },
+    );
+  }
+
+  Widget _fullScreenRoutePageBuilder(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+  ) {
+    return _defaultRoutePageBuilder(
+      context,
+      animation,
+      secondaryAnimation,
+    );
   }
 
   _exitFullscreen() {
@@ -143,19 +187,22 @@ class _FlickVideoPlayerState extends State<FlickVideoPlayer> {
       Wakelock.enable();
     }
 
+    Navigator.of(context, rootNavigator: true).pop();
+
     if (Platform.isAndroid && widget.secureContentOnFullScreen) {
       FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
     }
 
     _isFullscreen = false;
-
-    _overlayEntry?.remove();
-    _overlayEntry = null;
     _setPreferredOrientation();
     _setSystemUIOverlays();
   }
 
   _setPreferredOrientation() {
+    if (_overrideOrientations.isNotEmpty && _isFullscreen) {
+      SystemChrome.setPreferredOrientations(_overrideOrientations);
+      return;
+    }
     if (_isFullscreen) {
       if (flickManager.respectAspectRatioInFullScreen ?? false) {
         final aspectRatio = flickManager?.flickVideoManager
@@ -194,18 +241,9 @@ class _FlickVideoPlayerState extends State<FlickVideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
-        if (_overlayEntry != null) {
-          flickManager.flickControlManager.exitFullscreen();
-          return Future.value(false);
-        }
-        return Future.value(true);
-      },
-      child: FlickManagerBuilder(
-        flickManager: flickManager,
-        child: widget.flickVideoWithControls,
-      ),
+    return FlickManagerBuilder(
+      flickManager: flickManager,
+      child: widget.flickVideoWithControls,
     );
   }
 }

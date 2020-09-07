@@ -88,12 +88,13 @@ class FlickVideoManager extends ChangeNotifier {
 
   _handleChangeVideo(VideoPlayerController newController,
       {Duration videoChangeDuration,
+      bool reseekPosition = false,
       TimerCancelCallback timerCancelCallback}) async {
     // If videoChangeDuration is not null, start the autoPlayTimer.
     if (videoChangeDuration != null) {
       _timerCancelCallback = timerCancelCallback;
       _videoChangeCallback = () {
-        _changeVideo(newController);
+        _changeVideo(newController, reseekPosition);
         _nextVideoAutoPlayTimer = null;
         _nextVideoAutoPlayDuration = null;
         _videoChangeCallback = null;
@@ -106,14 +107,15 @@ class FlickVideoManager extends ChangeNotifier {
       _notify();
     } else {
       // If videoChangeDuration is null, directly change the video.
-      _changeVideo(newController);
+      _changeVideo(newController, reseekPosition);
     }
   }
 
   // Immediately change the video.
-  _changeVideo(VideoPlayerController newController) async {
+  _changeVideo(VideoPlayerController newController, bool reseekPosition) async {
     //  Change the videoPlayerController with the new controller,
     // notify the controller change and remove listeners from the old controller.
+    Duration currentPosition = videoPlayerController.value.position;
     VideoPlayerController oldController = videoPlayerController;
     _flickManager.flickControlManager.pause();
     _videoPlayerController = newController;
@@ -134,6 +136,10 @@ class FlickVideoManager extends ChangeNotifier {
         videoPlayerController.value.duration) {
       videoPlayerController
           .seekTo(Duration(hours: 0, minutes: 0, seconds: 0, milliseconds: 0));
+    }
+
+    if (reseekPosition) {
+      videoPlayerController.seekTo(currentPosition);
     }
 
     // Initialize the video if not initialized
