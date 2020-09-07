@@ -1,12 +1,16 @@
+import 'dart:io';
+
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:wakelock/wakelock.dart';
 
 class FlickVideoPlayer extends StatefulWidget {
   const FlickVideoPlayer({
     Key key,
     @required this.flickManager,
+    this.secureContentOnFullScreen = false,
     this.flickVideoWithControls = const FlickVideoWithControls(
       controls: const FlickPortraitControls(),
     ),
@@ -53,6 +57,10 @@ class FlickVideoPlayer extends StatefulWidget {
   ///
   /// Use [wakeLockEnabledFullscreen] to manage wakelock for full-screen.
   final bool wakelockEnabled;
+
+  /// Prevents anyone from taking a screenshot or using a screenrecorder on android when the app is in
+  /// full screen
+  final bool secureContentOnFullScreen;
 
   /// Prevents the screen from turning off automatically in full-screen.
   final bool wakelockEnabledFullscreen;
@@ -107,6 +115,10 @@ class _FlickVideoPlayerState extends State<FlickVideoPlayer> {
       Wakelock.enable();
     }
 
+    if (Platform.isAndroid && widget.secureContentOnFullScreen) {
+      FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+    }
+
     _isFullscreen = true;
     _setPreferredOrientation();
     _setSystemUIOverlays();
@@ -129,6 +141,10 @@ class _FlickVideoPlayerState extends State<FlickVideoPlayer> {
 
     if (widget.wakelockEnabled) {
       Wakelock.enable();
+    }
+
+    if (Platform.isAndroid && widget.secureContentOnFullScreen) {
+      FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
     }
 
     _isFullscreen = false;

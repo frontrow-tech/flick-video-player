@@ -104,6 +104,12 @@
       "languageVersion": "2.3"
     },
     {
+      "name": "flutter_windowmanager",
+      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_windowmanager-0.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
       "name": "html",
       "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/hosted/pub.dartlang.org/html-0.14.0+3",
       "packageUri": "lib/",
@@ -254,7 +260,7 @@
       "languageVersion": "2.1"
     }
   ],
-  "generated": "2020-09-05T13:16:18.568516Z",
+  "generated": "2020-09-07T13:43:44.654275Z",
   "generator": "pub",
   "generatorVersion": "2.9.1"
 }
