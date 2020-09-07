@@ -26,7 +26,7 @@ class FlickVideoManager extends ChangeNotifier {
   /// Auto-play the video after initialization.
   final bool autoPlay;
 
-  final bool autoInitialize;
+  bool autoInitialize;
 
   /// Is current playing video ended.
   bool get isVideoEnded => _currentVideoEnded;
@@ -60,6 +60,11 @@ class FlickVideoManager extends ChangeNotifier {
   bool get isVideoInitialized =>
       videoPlayerController?.value?.initialized ?? false;
   bool get isPlaying => videoPlayerController?.value?.isPlaying ?? false;
+
+  void setAutoInitialize(bool val) {
+    autoInitialize = val;
+    _notify();
+  }
 
   /// Cancel the current auto player timer with option of playing the next video directly.
   cancelVideoAutoPlayTimer({bool playNext = false}) {
