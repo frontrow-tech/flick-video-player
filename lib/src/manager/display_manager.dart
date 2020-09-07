@@ -12,7 +12,7 @@ class FlickDisplayManager extends ChangeNotifier {
   final FlickManager _flickManager;
   bool _mounted = true;
   Timer _showPlayerControlsTimer;
-  bool _showPlayerControls = true;
+  bool _showPlayerControls = false;
   bool _showForwardSeek = false;
   bool _showBackwardSeek = false;
   SubtitleStyle _subtitleStyle = SubtitleStyle();
