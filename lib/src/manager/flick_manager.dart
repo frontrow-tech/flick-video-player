@@ -75,6 +75,7 @@ class FlickManager {
       TimerCancelCallback timerCancelCallback}) {
     _flickVideoManager._handleChangeVideo(videoPlayerController,
         videoChangeDuration: videoChangeDuration,
+        reseekPosition: reseekPosition,
         timerCancelCallback: timerCancelCallback);
   }
 

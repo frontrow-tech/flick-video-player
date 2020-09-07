@@ -116,8 +116,6 @@ class FlickVideoManager extends ChangeNotifier {
     //  Change the videoPlayerController with the new controller,
     // notify the controller change and remove listeners from the old controller.
     Duration currentPosition = videoPlayerController?.value?.position;
-    print(reseekPosition);
-    print(currentPosition);
     VideoPlayerController oldController = videoPlayerController;
     _flickManager.flickControlManager.pause();
     _videoPlayerController = newController;
