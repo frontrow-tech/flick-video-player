@@ -90,8 +90,11 @@ class FlickControlManager extends ChangeNotifier {
 
   /// Replay the current playing video from beginning.
   void replay() {
+    final currentSub = _selectedSubtitle;
+    hideSubtitle();
     seekTo(Duration(minutes: 0));
     play();
+    if (currentSub != null) selectSubtitle(subtitleToSelect: currentSub);
   }
 
   /// Play the video.
