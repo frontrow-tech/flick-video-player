@@ -58,7 +58,10 @@ class FlickControlManager extends ChangeNotifier {
   }
 
   /// This method will hide any subtitle that is currently being displayed
-  void hideSubtitle() {}
+  void hideSubtitle() {
+    _selectedSubtitle = null;
+    _notify();
+  }
 
   /// Enter full-screen.
   void enterFullscreen() {
