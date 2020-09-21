@@ -16,6 +16,7 @@ class FlickVideoWithControls extends StatefulWidget {
     Key key,
     this.controls,
     this.videoFit = BoxFit.cover,
+    this.alignment = Alignment.center,
     this.playerLoadingFallback = const Center(
       child: CircularProgressIndicator(),
     ),
@@ -50,6 +51,7 @@ class FlickVideoWithControls extends StatefulWidget {
   /// Property passed to [FlickVideoPlayer]
   final BoxFit videoFit;
   final Color backgroundColor;
+  final AlignmentGeometry alignment;
 
   /// Used in [DefaultTextStyle]
   ///
@@ -110,6 +112,7 @@ class _FlickVideoWithControlsState extends State<FlickVideoWithControls> {
                   child: FlickNativeVideoPlayer(
                     videoPlayerController: _videoPlayerController,
                     fit: widget.videoFit,
+                    alignment: widget.alignment,
                     aspectRatioWhenLoading: widget.aspectRatioWhenLoading,
                   ),
                 ),

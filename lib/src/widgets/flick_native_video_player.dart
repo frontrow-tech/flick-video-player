@@ -13,9 +13,11 @@ class FlickNativeVideoPlayer extends StatelessWidget {
     this.fit,
     this.aspectRatioWhenLoading,
     @required this.videoPlayerController,
+    this.alignment,
   }) : super(key: key);
 
   final BoxFit fit;
+  final AlignmentGeometry alignment;
   final double aspectRatioWhenLoading;
   final VideoPlayerController videoPlayerController;
 
@@ -44,6 +46,7 @@ class FlickNativeVideoPlayer extends StatelessWidget {
           aspectRatio: aspectRatio,
           child: FittedBox(
             fit: fit,
+            alignment: alignment,
             child: videoPlayerController?.value?.initialized == true
                 ? Container(
                     height: videoHeight,

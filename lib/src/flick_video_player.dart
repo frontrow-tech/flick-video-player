@@ -78,7 +78,7 @@ class _FlickVideoPlayerState extends State<FlickVideoPlayer> {
   bool _isFullscreen = false;
 
   List<DeviceOrientation> get _overrideOrientations =>
-      widget.overrideOrientations ?? <Orientation>[];
+      widget.overrideOrientations ?? <DeviceOrientation>[];
 
   @override
   void initState() {
