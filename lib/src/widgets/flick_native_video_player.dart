@@ -46,7 +46,7 @@ class FlickNativeVideoPlayer extends StatelessWidget {
           aspectRatio: aspectRatio,
           child: FittedBox(
             fit: fit,
-            alignment: alignment,
+            alignment: alignment ?? Alignment.center,
             child: videoPlayerController?.value?.initialized == true
                 ? Container(
                     height: videoHeight,
