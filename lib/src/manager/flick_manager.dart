@@ -17,8 +17,13 @@ class FlickManager {
     this.onVideoEnd,
     GetPlayerControlsTimeout getPlayerControlsTimeout,
     @required VideoPlayerController videoPlayerController,
-    @required void Function(VideoPlayerController) onPlay,
-    @required void Function(VideoPlayerController) onPause,
+    void Function(int) onTogglePlay,
+    void Function(int) onToggleMute,
+    void Function(int) onToggleFullScreen,
+    void Function(int) onForwardTap,
+    void Function(int) onBackwardTap,
+    void Function(int, bool isForward) onSeek,
+    void Function(int) onReplay,
     this.respectAspectRatioInFullScreen = true,
 
     /// Auto initialize the video.
@@ -30,7 +35,14 @@ class FlickManager {
             getPlayerControlsTimeout ?? getPlayerControlsTimeoutDefault,
         assert(videoPlayerController != null) {
     _flickControlManager = FlickControlManager(
-        flickManager: this, onPlay: onPlay, onPause: onPause);
+        flickManager: this,
+        onToggleMute: onToggleMute,
+        onBackwardTap: onBackwardTap,
+        onForwardTap: onForwardTap,
+        onReplay: onReplay,
+        onSeek: onSeek,
+        onToggleFullScreen: onToggleFullScreen,
+        onTogglePlay: onTogglePlay);
     _flickVideoManager = FlickVideoManager(
         flickManager: this, autoPlay: autoPlay, autoInitialize: autoInitialize);
     _flickDisplayManager = FlickDisplayManager(

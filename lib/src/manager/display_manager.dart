@@ -3,13 +3,13 @@ part of flick_manager;
 /// Manages display related properties like auto-hide controls.
 class FlickDisplayManager extends ChangeNotifier {
   /// Manages display related properties like auto-hide controls.
-  FlickDisplayManager({
-    FlickManager flickManager,
-  }) : _flickManager = flickManager {
+  FlickDisplayManager({FlickManager flickManager})
+      : _flickManager = flickManager {
     handleShowPlayerControls();
   }
 
   final FlickManager _flickManager;
+
   bool _mounted = true;
   Timer _showPlayerControlsTimer;
   bool _showPlayerControls = false;

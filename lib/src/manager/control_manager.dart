@@ -7,15 +7,24 @@ part of flick_manager;
 class FlickControlManager extends ChangeNotifier {
   FlickControlManager(
       {@required FlickManager flickManager,
-      @required this.onPause,
-      @required this.onPlay})
+      this.onTogglePlay,
+      this.onToggleMute,
+      this.onForwardTap,
+      this.onBackwardTap,
+      this.onSeek,
+      this.onToggleFullScreen,
+      this.onReplay})
       : _flickManager = flickManager;
 
   final FlickManager _flickManager;
 
-  final void Function(VideoPlayerController) onPlay;
-
-  final void Function(VideoPlayerController) onPause;
+  final void Function(int) onTogglePlay;
+  final void Function(int) onToggleMute;
+  final void Function(int) onForwardTap;
+  final void Function(int) onBackwardTap;
+  final void Function(int, bool isForward) onSeek;
+  final void Function(int) onReplay;
+  final void Function(int) onToggleFullScreen;
 
   bool _mounted = true;
 
@@ -39,6 +48,9 @@ class FlickControlManager extends ChangeNotifier {
 
   VideoPlayerController get _videoPlayerController =>
       _flickManager.flickVideoManager.videoPlayerController;
+
+  int get _durationInSeconds =>
+      _videoPlayerController?.value?.position?.inSeconds;
   bool get _isPlaying => _flickManager.flickVideoManager.isPlaying;
 
   /// Set available subtitles for this video
@@ -84,6 +96,7 @@ class FlickControlManager extends ChangeNotifier {
     } else {
       enterFullscreen();
     }
+    if (onToggleFullScreen != null) onToggleFullScreen(_durationInSeconds);
   }
 
   /// Toggle play.
@@ -98,6 +111,7 @@ class FlickControlManager extends ChangeNotifier {
     seekTo(Duration(minutes: 0));
     play();
     if (currentSub != null) selectSubtitle(subtitleToSelect: currentSub);
+    if (onReplay != null) onReplay(_durationInSeconds);
   }
 
   /// Play the video.
@@ -112,7 +126,7 @@ class FlickControlManager extends ChangeNotifier {
     await _videoPlayerController.play();
     _flickManager.flickDisplayManager.handleShowPlayerControls();
     _notify();
-    if (onPlay != null) onPlay(_videoPlayerController);
+    if (onTogglePlay != null) onTogglePlay(_durationInSeconds);
   }
 
   /// Auto-resume video.
@@ -131,7 +145,7 @@ class FlickControlManager extends ChangeNotifier {
     _flickManager.flickDisplayManager
         .handleShowPlayerControls(showWithTimeout: false);
     _notify();
-    if (onPause != null) onPause(_videoPlayerController);
+    if (onTogglePlay != null) onTogglePlay(_durationInSeconds);
   }
 
   /// Use this to programmatically pause the video.
@@ -143,34 +157,42 @@ class FlickControlManager extends ChangeNotifier {
   }
 
   /// Seek video to a duration.
-  Future<void> seekTo(Duration moment) async {
+  Future<void> seekTo(Duration moment, {bool shouldFireCallback = true}) async {
+    bool _isForward = _durationInSeconds < moment.inSeconds;
     await _videoPlayerController.seekTo(moment);
+
+    if (onSeek != null && shouldFireCallback)
+      onSeek(_durationInSeconds, _isForward);
   }
 
   /// Seek video forward by the duration.
   Future<void> seekForward(Duration videoSeekDuration) async {
     _flickManager._handleVideoSeek(forward: true);
-    await seekTo(_videoPlayerController.value.position + videoSeekDuration);
+    await seekTo(_videoPlayerController.value.position + videoSeekDuration,
+        shouldFireCallback: false);
+    if (onForwardTap != null) onForwardTap(_durationInSeconds);
   }
 
   /// Seek video backward by the duration.
   Future<void> seekBackward(Duration videoSeekDuration) async {
     _flickManager._handleVideoSeek(forward: false);
-    await seekTo(
-      _videoPlayerController.value.position - videoSeekDuration,
-    );
+    await seekTo(_videoPlayerController.value.position - videoSeekDuration,
+        shouldFireCallback: false);
+    if (onForwardTap != null) onBackwardTap(_durationInSeconds);
   }
 
   /// Mute the video.
   Future<void> mute() async {
     _isMute = true;
     await setVolume(0);
+    if (onToggleMute != null) onToggleMute(_durationInSeconds);
   }
 
   /// Un-mute the video.
   Future<void> unmute() async {
     _isMute = false;
     await setVolume(1);
+    if (onToggleMute != null) onToggleMute(_durationInSeconds);
   }
 
   /// Toggle mute.
