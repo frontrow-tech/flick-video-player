@@ -201,7 +201,7 @@
     },
     {
       "name": "subtitle_wrapper_package",
-      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/git/flutter_subtitle_wrapper-917c4adc4f5e9bd37fd275cf5965cf4a8ae85940/",
+      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/git/flutter_subtitle_wrapper-40c2f1713ea60142e93a108467a09e5509d18a3c/",
       "packageUri": "lib/",
       "languageVersion": "2.2"
     },
@@ -231,21 +231,21 @@
     },
     {
       "name": "video_player",
-      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/hosted/pub.dartlang.org/video_player-0.10.8+1",
+      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/hosted/pub.dartlang.org/video_player-0.11.0",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.8"
     },
     {
       "name": "video_player_platform_interface",
-      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/hosted/pub.dartlang.org/video_player_platform_interface-1.0.5",
+      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/hosted/pub.dartlang.org/video_player_platform_interface-2.2.0",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.8"
     },
     {
       "name": "video_player_web",
-      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/hosted/pub.dartlang.org/video_player_web-0.1.2+3",
+      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/hosted/pub.dartlang.org/video_player_web-0.1.4",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.8"
     },
     {
       "name": "wakelock",
@@ -260,7 +260,7 @@
       "languageVersion": "2.1"
     }
   ],
-  "generated": "2020-09-07T13:43:44.654275Z",
+  "generated": "2020-10-06T11:45:53.014940Z",
   "generator": "pub",
-  "generatorVersion": "2.9.1"
+  "generatorVersion": "2.9.2"
 }
