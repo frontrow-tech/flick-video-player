@@ -18,13 +18,13 @@ class FlickControlManager extends ChangeNotifier {
 
   final FlickManager _flickManager;
 
-  final void Function(int) onTogglePlay;
-  final void Function(int) onToggleMute;
-  final void Function(int) onForwardTap;
-  final void Function(int) onBackwardTap;
-  final void Function(int, bool isForward) onSeek;
-  final void Function(int) onReplay;
-  final void Function(int) onToggleFullScreen;
+  void Function(int) onTogglePlay;
+  void Function(int) onToggleMute;
+  void Function(int) onForwardTap;
+  void Function(int) onBackwardTap;
+  void Function(int, bool isForward) onSeek;
+  void Function(int) onReplay;
+  void Function(int) onToggleFullScreen;
 
   bool _mounted = true;
 
@@ -52,6 +52,27 @@ class FlickControlManager extends ChangeNotifier {
   int get _durationInSeconds =>
       _videoPlayerController?.value?.position?.inSeconds;
   bool get _isPlaying => _flickManager.flickVideoManager.isPlaying;
+
+  /// Use this method to register the various callbacks if they could not be passed while
+  /// creating the instance of flick manager
+  void registerActionCallbacks({
+    void Function(int) onTogglePlayCallback,
+    void Function(int) onToggleMuteCallback,
+    void Function(int) onForwardTapCallback,
+    void Function(int) onBackwardTapCallback,
+    void Function(int, bool isForward) onSeekCallback,
+    void Function(int) onReplayCallback,
+    void Function(int) onToggleFullScreenCallback,
+  }) {
+    onTogglePlay = onTogglePlayCallback;
+    onToggleMute = onToggleMuteCallback;
+    onForwardTap = onForwardTapCallback;
+    onBackwardTap = onBackwardTapCallback;
+    onSeek = onSeekCallback;
+    onReplay = onReplayCallback;
+    onToggleFullScreen = onToggleFullScreenCallback;
+    _notify();
+  }
 
   /// Set available subtitles for this video
   void setSubtitles({@required List<FlickSubtitle> videoSubtitles}) {
