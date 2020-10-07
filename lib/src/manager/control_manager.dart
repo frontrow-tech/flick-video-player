@@ -122,7 +122,9 @@ class FlickControlManager extends ChangeNotifier {
 
   /// Toggle play.
   void togglePlay() {
-    _isPlaying ? pause() : play();
+    _isPlaying
+        ? pause(shouldFireCallback: true)
+        : play(shouldFireCallback: true);
   }
 
   /// Replay the current playing video from beginning.
@@ -136,7 +138,7 @@ class FlickControlManager extends ChangeNotifier {
   }
 
   /// Play the video.
-  Future<void> play() async {
+  Future<void> play({bool shouldFireCallback = false}) async {
     _isAutoPause = false;
 
     // When video changes, the new video has to be muted.
@@ -147,7 +149,9 @@ class FlickControlManager extends ChangeNotifier {
     await _videoPlayerController.play();
     _flickManager.flickDisplayManager.handleShowPlayerControls();
     _notify();
-    if (onTogglePlay != null) onTogglePlay(_durationInSeconds);
+    if (shouldFireCallback != null && shouldFireCallback) {
+      if (onTogglePlay != null) onTogglePlay(_durationInSeconds);
+    }
   }
 
   /// Auto-resume video.
@@ -161,12 +165,14 @@ class FlickControlManager extends ChangeNotifier {
   }
 
   /// Pause the video.
-  Future<void> pause() async {
+  Future<void> pause({bool shouldFireCallback = false}) async {
     await _videoPlayerController?.pause();
     _flickManager.flickDisplayManager
         .handleShowPlayerControls(showWithTimeout: false);
     _notify();
-    if (onTogglePlay != null) onTogglePlay(_durationInSeconds);
+    if (shouldFireCallback != null && shouldFireCallback) {
+      if (onTogglePlay != null) onTogglePlay(_durationInSeconds);
+    }
   }
 
   /// Use this to programmatically pause the video.
