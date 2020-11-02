@@ -209,10 +209,11 @@ class FlickControlManager extends ChangeNotifier {
   }
 
   /// Mute the video.
-  Future<void> mute() async {
+  Future<void> mute({bool fireCallback = true}) async {
     _isMute = true;
     await setVolume(0);
-    if (onToggleMute != null) onToggleMute(_durationInSeconds);
+    if (onToggleMute != null && (fireCallback ?? false))
+      onToggleMute(_durationInSeconds);
   }
 
   /// Un-mute the video.
