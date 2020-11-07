@@ -42,47 +42,51 @@ class FlickNativeVideoPlayer extends StatelessWidget {
                 : aspectRatioWhenLoading
             : size.maxWidth / size.maxHeight;
 
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-          child: AspectRatio(
-            aspectRatio: aspectRatio,
-            child: FittedBox(
-              fit: fit,
-              alignment: alignment ?? Alignment.center,
-              child: videoPlayerController?.value?.initialized == true
-                  ? Container(
+        return videoPlayerController?.value?.initialized == true
+            ? SubTitleWrapper(
+                subtitleStyle: SubtitleStyle(
+                  textStyle: subtitleStyle.textStyle,
+                  hasBorder: subtitleStyle.hasBorder,
+                  borderStyle: subtitleStyle.borderStyle,
+                  backgroundColor: subtitleStyle.backgroundColor,
+                  shadows: subtitleStyle.shadows,
+                  fontSize: subtitleStyle.fontSize,
+                  textColor: subtitleStyle.textColor,
+                  position: displayManager.showPlayerControls &&
+                          subtitleStyle.position.bottom > 0
+                      ? subtitleStyle.position
+                          .copyWith(bottom: subtitleStyle.position.bottom + 20)
+                      : subtitleStyle.position,
+                  padding: subtitleStyle.padding,
+                ),
+                subtitleController: SubtitleController(
+                    showSubtitles: controlManager?.selectedSubtitle != null,
+                    subtitleUrl:
+                        controlManager?.selectedSubtitle?.subtitleUrl ?? ''),
+                videoChild: AspectRatio(
+                  aspectRatio: aspectRatio,
+                  child: FittedBox(
+                    fit: fit,
+                    alignment: alignment ?? Alignment.center,
+                    child: Container(
+                        height: videoHeight,
+                        width: videoWidth,
+                        child: videoPlayer),
+                  ),
+                ),
+                videoPlayerController: videoPlayerController,
+              )
+            : AspectRatio(
+                aspectRatio: aspectRatio,
+                child: FittedBox(
+                  fit: fit,
+                  alignment: alignment ?? Alignment.center,
+                  child: Container(
                       height: videoHeight,
                       width: videoWidth,
-                      child: SubTitleWrapper(
-                        subtitleStyle: SubtitleStyle(
-                          textStyle: subtitleStyle.textStyle,
-                          hasBorder: subtitleStyle.hasBorder,
-                          borderStyle: subtitleStyle.borderStyle,
-                          backgroundColor: subtitleStyle.backgroundColor,
-                          shadows: subtitleStyle.shadows,
-                          fontSize: subtitleStyle.fontSize,
-                          textColor: subtitleStyle.textColor,
-                          position: displayManager.showPlayerControls &&
-                                  subtitleStyle.position.bottom > 0
-                              ? subtitleStyle.position.copyWith(
-                                  bottom: subtitleStyle.position.bottom + 20)
-                              : subtitleStyle.position,
-                          padding: subtitleStyle.padding,
-                        ),
-                        subtitleController: SubtitleController(
-                            showSubtitles:
-                                controlManager?.selectedSubtitle != null,
-                            subtitleUrl:
-                                controlManager?.selectedSubtitle?.subtitleUrl ??
-                                    ''),
-                        videoChild: videoPlayer,
-                        videoPlayerController: videoPlayerController,
-                      ),
-                    )
-                  : Container(),
-            ),
-          ),
-        );
+                      child: Container()),
+                ),
+              );
       },
     );
   }
