@@ -55,6 +55,7 @@ class FlickNativeVideoPlayer extends StatelessWidget {
                       width: videoWidth,
                       child: SubTitleWrapper(
                         subtitleStyle: SubtitleStyle(
+                          textStyle: subtitleStyle.textStyle,
                           hasBorder: subtitleStyle.hasBorder,
                           borderStyle: subtitleStyle.borderStyle,
                           backgroundColor: subtitleStyle.backgroundColor,
