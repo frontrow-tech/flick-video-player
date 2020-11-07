@@ -201,7 +201,7 @@
     },
     {
       "name": "subtitle_wrapper_package",
-      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/git/flutter_subtitle_wrapper-f978a22c5eef26d7f6b7d4e34dbdfa0dcca68ea3/",
+      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/git/flutter_subtitle_wrapper-7b82c86c5333339b0911b5379f74016b570a885a/",
       "packageUri": "lib/",
       "languageVersion": "2.2"
     },
@@ -260,7 +260,7 @@
       "languageVersion": "2.1"
     }
   ],
-  "generated": "2020-11-07T13:16:01.703524Z",
+  "generated": "2020-11-07T17:18:55.202458Z",
   "generator": "pub",
   "generatorVersion": "2.10.2"
 }
