@@ -19,7 +19,7 @@ dependencies:
   subtitle_wrapper_package:
         git:
             url: https://github.com/ayush221b/flutter_subtitle_wrapper.git
-            ref: 7b82c86c5333339b0911b5379f74016b570a885a
+            ref: a9039536a7ec13a2e602c45f9982e5b423aafa4c
 
 dev_dependencies:
   flutter_test:

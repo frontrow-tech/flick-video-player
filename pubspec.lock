@@ -186,8 +186,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "7b82c86c5333339b0911b5379f74016b570a885a"
-      resolved-ref: "7b82c86c5333339b0911b5379f74016b570a885a"
+      ref: a9039536a7ec13a2e602c45f9982e5b423aafa4c
+      resolved-ref: a9039536a7ec13a2e602c45f9982e5b423aafa4c
       url: "https://github.com/ayush221b/flutter_subtitle_wrapper.git"
     source: git
     version: "1.0.2"
