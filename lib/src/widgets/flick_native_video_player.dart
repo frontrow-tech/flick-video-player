@@ -61,6 +61,8 @@ class FlickNativeVideoPlayer extends StatelessWidget {
                 ),
                 subtitleController: SubtitleController(
                     showSubtitles: controlManager?.selectedSubtitle != null,
+                    subtitlesContent:
+                        controlManager?.selectedSubtitle?.subtitleContent,
                     subtitleUrl:
                         controlManager?.selectedSubtitle?.subtitleUrl ?? ''),
                 videoChild: AspectRatio(

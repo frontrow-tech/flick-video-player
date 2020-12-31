@@ -10,9 +10,13 @@ class FlickSubtitle {
   /// The url to the subtitle file
   final String subtitleUrl;
 
+  /// The string content of the subtitle
+  final String subtitleContent;
+
   FlickSubtitle(
       {@required this.languageName,
       @required this.subtitleUrl,
+      this.subtitleContent,
       this.languageCode});
 
   @override
@@ -22,10 +26,14 @@ class FlickSubtitle {
     return o is FlickSubtitle &&
         o.languageName == languageName &&
         o.languageCode == languageCode &&
+        o.subtitleContent == subtitleContent &&
         o.subtitleUrl == subtitleUrl;
   }
 
   @override
   int get hashCode =>
-      languageName.hashCode ^ languageCode.hashCode ^ subtitleUrl.hashCode;
+      languageName.hashCode ^
+      languageCode.hashCode ^
+      subtitleUrl.hashCode ^
+      subtitleContent.hashCode;
 }
