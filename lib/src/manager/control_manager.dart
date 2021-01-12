@@ -36,8 +36,12 @@ class FlickControlManager extends ChangeNotifier {
 
   ValueNotifier<bool> _showAutoplayWidget = ValueNotifier(false);
 
+  ValueNotifier<Widget> _autoplayWidget = ValueNotifier(null);
+
   /// The flag which determines whether the autoplay widget should be shown or not
   ValueNotifier<bool> get showAutoplayWidget => _showAutoplayWidget;
+
+  ValueNotifier<Widget> get autoplayWidget => _autoplayWidget;
 
   /// Is player in full-screen.
   bool get isFullscreen => _isFullscreen;
@@ -60,6 +64,12 @@ class FlickControlManager extends ChangeNotifier {
 
   void setShowAutoplayWidget({@required bool value}) {
     _showAutoplayWidget.value = value ?? false;
+    _showAutoplayWidget.notifyListeners();
+  }
+
+  void setAutoplayWidget({@required Widget widget}) {
+    _autoplayWidget.value = widget ?? false;
+    _autoplayWidget.notifyListeners();
   }
 
   /// Use this method to register the various callbacks if they could not be passed while
