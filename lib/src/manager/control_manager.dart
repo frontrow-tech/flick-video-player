@@ -68,7 +68,7 @@ class FlickControlManager extends ChangeNotifier {
   }
 
   void setAutoplayWidget({@required Widget widget}) {
-    _autoplayWidget.value = widget ?? false;
+    _autoplayWidget.value = widget ?? null;
     _autoplayWidget.notifyListeners();
   }
 
