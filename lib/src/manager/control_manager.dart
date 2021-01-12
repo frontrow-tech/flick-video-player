@@ -34,6 +34,11 @@ class FlickControlManager extends ChangeNotifier {
   List<FlickSubtitle> _subtitles = [];
   FlickSubtitle _selectedSubtitle;
 
+  bool _showAutoplayWidget = false;
+
+  /// The flag which determines whether the autoplay widget should be shown or not
+  bool get showAutoplayWidget => _showAutoplayWidget;
+
   /// Is player in full-screen.
   bool get isFullscreen => _isFullscreen;
 
@@ -52,6 +57,13 @@ class FlickControlManager extends ChangeNotifier {
   int get _durationInSeconds =>
       _videoPlayerController?.value?.position?.inSeconds;
   bool get _isPlaying => _flickManager.flickVideoManager.isPlaying;
+
+  void setShowAutoplayWidget({@required bool value}) {
+    _showAutoplayWidget = value ?? false;
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _notify();
+    });
+  }
 
   /// Use this method to register the various callbacks if they could not be passed while
   /// creating the instance of flick manager

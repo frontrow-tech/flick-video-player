@@ -104,7 +104,9 @@ class FlickVideoManager extends ChangeNotifier {
 
       _nextVideoAutoPlayTimer =
           Timer(videoChangeDuration, _videoChangeCallback);
-      _notify();
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        _notify();
+      });
     } else {
       // If videoChangeDuration is null, directly change the video.
       _changeVideo(newController, reseekPosition);
@@ -125,7 +127,9 @@ class FlickVideoManager extends ChangeNotifier {
     // to reset the player UI immediately videoPlayerValue has to be changed here.
     _videoPlayerValue = videoPlayerController.value;
     _currentVideoEnded = false;
-    _notify();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _notify();
+    });
 
     // Dispose the old controller after 5 seconds.
     Future.delayed(Duration(seconds: 5), () => oldController?.dispose());
@@ -153,7 +157,9 @@ class FlickVideoManager extends ChangeNotifier {
       }
     }
 
-    if (autoPlay && ModalRoute.of(_flickManager._context).isCurrent) {
+    if (autoPlay &&
+        (ModalRoute.of(_flickManager._context).isCurrent ||
+            (_flickManager?.flickControlManager?.isFullscreen ?? false))) {
       // Start playing the video.
       _flickManager.flickControlManager.play();
     }
@@ -192,7 +198,9 @@ class FlickVideoManager extends ChangeNotifier {
         videoPlayerController.value.position.inSeconds >=
             videoPlayerController.value?.buffered[0]?.end?.inSeconds;
 
-    _notify();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _notify();
+    });
   }
 
   // Video-end handler.
