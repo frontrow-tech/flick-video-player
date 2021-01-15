@@ -17,6 +17,6 @@ public final class GeneratedPluginRegistrant {
     ShimPluginRegistry shimPluginRegistry = new ShimPluginRegistry(flutterEngine);
       io.adaptant.labs.flutter_windowmanager.FlutterWindowManagerPlugin.registerWith(shimPluginRegistry.registrarFor("io.adaptant.labs.flutter_windowmanager.FlutterWindowManagerPlugin"));
     flutterEngine.getPlugins().add(new io.flutter.plugins.videoplayer.VideoPlayerPlugin());
-    flutterEngine.getPlugins().add(new creativecreatorormaybenot.wakelock.WakelockPlugin());
+    flutterEngine.getPlugins().add(new creativemaybeno.wakelock.WakelockPlugin());
   }
 }

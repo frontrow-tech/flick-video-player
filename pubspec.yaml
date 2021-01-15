@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
   video_player: ^1.0.0
   provider: ^4.1.3
-  wakelock: ^0.1.4+1
+  wakelock: ^0.2.1+1
   # For passing flags to the underlying Android window manager
   flutter_windowmanager: ^0.0.2
   subtitle_wrapper_package:

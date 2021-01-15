@@ -44,6 +44,12 @@
       "languageVersion": "2.10"
     },
     {
+      "name": "csslib",
+      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/hosted/pub.dartlang.org/csslib-0.16.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.2"
+    },
+    {
       "name": "equatable",
       "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/hosted/pub.dartlang.org/equatable-1.2.4",
       "packageUri": "lib/",
@@ -86,6 +92,12 @@
       "languageVersion": "2.1"
     },
     {
+      "name": "html",
+      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/hosted/pub.dartlang.org/html-0.14.0+4",
+      "packageUri": "lib/",
+      "languageVersion": "2.3"
+    },
+    {
       "name": "http",
       "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.12.2",
       "packageUri": "lib/",
@@ -96,6 +108,18 @@
       "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-3.1.4",
       "packageUri": "lib/",
       "languageVersion": "2.3"
+    },
+    {
+      "name": "import_js_library",
+      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/hosted/pub.dartlang.org/import_js_library-1.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
+      "name": "js",
+      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
     },
     {
       "name": "matcher",
@@ -213,9 +237,21 @@
     },
     {
       "name": "wakelock",
-      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/hosted/pub.dartlang.org/wakelock-0.1.4+2",
+      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/hosted/pub.dartlang.org/wakelock-0.2.1+1",
       "packageUri": "lib/",
-      "languageVersion": "2.7"
+      "languageVersion": "2.8"
+    },
+    {
+      "name": "wakelock_platform_interface",
+      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/hosted/pub.dartlang.org/wakelock_platform_interface-0.1.0+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.8"
+    },
+    {
+      "name": "wakelock_web",
+      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/hosted/pub.dartlang.org/wakelock_web-0.1.0+3",
+      "packageUri": "lib/",
+      "languageVersion": "2.8"
     },
     {
       "name": "flick_video_player",
@@ -224,7 +260,7 @@
       "languageVersion": "2.4"
     }
   ],
-  "generated": "2021-01-15T04:27:07.450518Z",
+  "generated": "2021-01-15T04:30:20.120427Z",
   "generator": "pub",
   "generatorVersion": "2.10.0"
 }
