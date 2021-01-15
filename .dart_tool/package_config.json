@@ -165,7 +165,7 @@
     },
     {
       "name": "subtitle_wrapper_package",
-      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/git/flutter_subtitle_wrapper-a9039536a7ec13a2e602c45f9982e5b423aafa4c/",
+      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/git/flutter_subtitle_wrapper-a2e024c3c16878a481d2f22a24117ca9a69bfc2a/",
       "packageUri": "lib/",
       "languageVersion": "2.2"
     },
@@ -195,7 +195,7 @@
     },
     {
       "name": "video_player",
-      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/hosted/pub.dartlang.org/video_player-0.11.1+2",
+      "rootUri": "file:///Users/ayushshekhar/development/flutter/.pub-cache/hosted/pub.dartlang.org/video_player-1.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.8"
     },
@@ -224,7 +224,7 @@
       "languageVersion": "2.4"
     }
   ],
-  "generated": "2020-11-09T02:29:19.198658Z",
+  "generated": "2021-01-15T04:27:07.450518Z",
   "generator": "pub",
-  "generatorVersion": "2.10.2"
+  "generatorVersion": "2.10.0"
 }

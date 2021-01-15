@@ -186,8 +186,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: a9039536a7ec13a2e602c45f9982e5b423aafa4c
-      resolved-ref: a9039536a7ec13a2e602c45f9982e5b423aafa4c
+      ref: a2e024c3c16878a481d2f22a24117ca9a69bfc2a
+      resolved-ref: a2e024c3c16878a481d2f22a24117ca9a69bfc2a
       url: "https://github.com/ayush221b/flutter_subtitle_wrapper.git"
     source: git
     version: "1.0.2"
@@ -225,7 +225,7 @@ packages:
       name: video_player
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.11.1+2"
+    version: "1.0.1"
   video_player_platform_interface:
     dependency: transitive
     description:
