@@ -16,8 +16,11 @@ class FlickTotalDuration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FlickVideoManager videoManager = Provider.of<FlickVideoManager>(context);
+    FlickControlManager controlManager =
+        Provider.of<FlickControlManager>(context);
 
-    Duration duration = videoManager?.videoPlayerValue?.duration;
+    Duration duration =
+        controlManager?.maxDuration ?? videoManager?.videoPlayerValue?.duration;
 
     String durationInSeconds = duration != null
         ? (duration - Duration(minutes: duration.inMinutes))
