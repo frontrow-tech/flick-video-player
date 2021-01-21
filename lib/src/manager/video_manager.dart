@@ -171,11 +171,18 @@ class FlickVideoManager extends ChangeNotifier {
   _videoListener() {
     _videoPlayerValue = videoPlayerController.value;
 
+    final Duration _maxDuration =
+        _flickManager?.flickControlManager?.maxDuration ??
+            videoPlayerValue?.duration;
+
     // If video position has reached the end, take action for videoEnd.
     if (videoPlayerValue != null &&
         videoPlayerValue.position != null &&
         videoPlayerValue?.duration != null &&
-        (videoPlayerValue.position) >= (videoPlayerValue?.duration)) {
+        (videoPlayerValue.position) >= (_maxDuration)) {
+      if (videoPlayerValue?.isPlaying ?? false) {
+        _flickManager?.flickControlManager?.pause();
+      }
       if (!_currentVideoEnded) {
         handleVideoEnd();
       }
