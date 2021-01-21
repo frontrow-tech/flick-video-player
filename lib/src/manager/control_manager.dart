@@ -34,14 +34,14 @@ class FlickControlManager extends ChangeNotifier {
   List<FlickSubtitle> _subtitles = [];
   FlickSubtitle _selectedSubtitle;
 
-  ValueNotifier<bool> _showAutoplayWidget = ValueNotifier(false);
+  ValueNotifier<bool> _showCustomOverlayWidget = ValueNotifier(false);
 
-  ValueNotifier<Widget> _autoplayWidget = ValueNotifier(null);
+  ValueNotifier<Widget> _customOverlayWidget = ValueNotifier(null);
 
-  /// The flag which determines whether the autoplay widget should be shown or not
-  ValueNotifier<bool> get showAutoplayWidget => _showAutoplayWidget;
+  /// The flag which determines whether the custom overlay widget should be shown or not
+  ValueNotifier<bool> get showCustomOverlayWidget => _showCustomOverlayWidget;
 
-  ValueNotifier<Widget> get autoplayWidget => _autoplayWidget;
+  ValueNotifier<Widget> get customOverlayWidget => _customOverlayWidget;
 
   /// Is player in full-screen.
   bool get isFullscreen => _isFullscreen;
@@ -62,14 +62,14 @@ class FlickControlManager extends ChangeNotifier {
       _videoPlayerController?.value?.position?.inSeconds;
   bool get _isPlaying => _flickManager.flickVideoManager.isPlaying;
 
-  void setShowAutoplayWidget({@required bool value}) {
-    _showAutoplayWidget.value = value ?? false;
-    _showAutoplayWidget.notifyListeners();
+  void setShowCustomOverlayWidget({@required bool value}) {
+    _showCustomOverlayWidget.value = value ?? false;
+    _showCustomOverlayWidget.notifyListeners();
   }
 
-  void setAutoplayWidget({@required Widget widget}) {
-    _autoplayWidget.value = widget ?? null;
-    _autoplayWidget.notifyListeners();
+  void setCustomOverlayWidget({@required Widget widget}) {
+    _customOverlayWidget.value = widget ?? null;
+    _customOverlayWidget.notifyListeners();
   }
 
   /// Use this method to register the various callbacks if they could not be passed while
