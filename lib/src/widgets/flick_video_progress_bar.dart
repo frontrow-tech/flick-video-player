@@ -26,6 +26,8 @@ class FlickVideoProgressBar extends StatelessWidget {
         Provider.of<FlickControlManager>(context);
     FlickVideoManager videoManager = Provider.of<FlickVideoManager>(context);
     VideoPlayerValue videoPlayerValue = videoManager.videoPlayerValue;
+    final Duration _maxduration =
+        controlManager.maxDuration ?? videoPlayerValue.duration;
 
     if (videoPlayerValue == null) return Container();
 
@@ -33,7 +35,7 @@ class FlickVideoProgressBar extends StatelessWidget {
       final box = context.findRenderObject() as RenderBox;
       final Offset tapPos = box.globalToLocal(globalPosition);
       final double relative = tapPos.dx / box.size.width;
-      final Duration position = videoPlayerValue.duration * relative;
+      final Duration position = _maxduration * relative;
       controlManager.seekTo(position);
     }
 
@@ -47,7 +49,8 @@ class FlickVideoProgressBar extends StatelessWidget {
             height: flickProgressBarSettings.height,
             child: CustomPaint(
               painter: _ProgressBarPainter(
-                videoPlayerValue,
+                videoManager,
+                controlManager,
                 flickProgressBarSettings: flickProgressBarSettings,
               ),
             ),
@@ -95,10 +98,14 @@ class FlickVideoProgressBar extends StatelessWidget {
 }
 
 class _ProgressBarPainter extends CustomPainter {
-  _ProgressBarPainter(this.value, {this.flickProgressBarSettings});
+  _ProgressBarPainter(this.videoManager, this.controlManager,
+      {this.flickProgressBarSettings});
 
-  VideoPlayerValue value;
+  FlickVideoManager videoManager;
+  FlickControlManager controlManager;
   FlickProgressBarSettings flickProgressBarSettings;
+
+  VideoPlayerValue get value => videoManager?.videoPlayerValue;
 
   @override
   bool shouldRepaint(CustomPainter painter) {
@@ -134,14 +141,16 @@ class _ProgressBarPainter extends CustomPainter {
       return;
     }
 
+    final _maxDuration = controlManager?.maxDuration ?? value.duration;
+
     final double playedPartPercent =
-        value.position.inMilliseconds / value.duration.inMilliseconds;
+        value.position.inMilliseconds / _maxDuration.inMilliseconds;
     final double playedPart =
         playedPartPercent > 1 ? width : playedPartPercent * width;
 
     for (DurationRange range in value.buffered) {
-      final double start = range.startFraction(value.duration) * width;
-      final double end = range.endFraction(value.duration) * width;
+      final double start = range.startFraction(_maxDuration) * width;
+      final double end = range.endFraction(_maxDuration) * width;
 
       Paint bufferedPaint = flickProgressBarSettings.getBufferedPaint != null
           ? flickProgressBarSettings.getBufferedPaint(

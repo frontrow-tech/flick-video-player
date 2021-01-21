@@ -16,8 +16,13 @@ class FlickLeftDuration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FlickVideoManager videoManager = Provider.of<FlickVideoManager>(context);
+    FlickControlManager controlManager =
+        Provider.of<FlickControlManager>(context);
 
-    Duration duration = videoManager?.videoPlayerValue?.duration;
+    Duration _maxDuration = controlManager?.maxDuration;
+    Duration duration = _maxDuration != null
+        ? _maxDuration
+        : videoManager?.videoPlayerValue?.duration;
     Duration position = videoManager?.videoPlayerValue?.position;
 
     Duration durationLeft =

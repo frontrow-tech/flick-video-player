@@ -62,6 +62,17 @@ class FlickControlManager extends ChangeNotifier {
       _videoPlayerController?.value?.position?.inSeconds;
   bool get _isPlaying => _flickManager.flickVideoManager.isPlaying;
 
+  Duration _maxDuration;
+
+  Duration get maxDuration => _maxDuration;
+
+  void setMaxDuration({@required Duration upperVideoLimit}) {
+    if (upperVideoLimit != null) {
+      _maxDuration = upperVideoLimit;
+      _notify();
+    }
+  }
+
   void setShowCustomOverlayWidget({@required bool value}) {
     _showCustomOverlayWidget.value = value ?? false;
     _showCustomOverlayWidget.notifyListeners();
@@ -204,6 +215,9 @@ class FlickControlManager extends ChangeNotifier {
 
   /// Seek video to a duration.
   Future<void> seekTo(Duration moment, {bool shouldFireCallback = true}) async {
+    if (_maxDuration != null && moment > _maxDuration) {
+      moment = _maxDuration;
+    }
     bool _isForward = _durationInSeconds < moment.inSeconds;
     await _videoPlayerController.seekTo(moment);
 
