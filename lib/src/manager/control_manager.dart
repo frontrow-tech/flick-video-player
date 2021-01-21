@@ -158,11 +158,11 @@ class FlickControlManager extends ChangeNotifier {
   }
 
   /// Replay the current playing video from beginning.
-  void replay() {
+  void replay() async {
     final currentSub = _selectedSubtitle;
     hideSubtitle();
-    seekTo(Duration(minutes: 0));
-    play();
+    await seekTo(Duration(minutes: 0));
+    await play();
     if (currentSub != null) selectSubtitle(subtitleToSelect: currentSub);
     if (onReplay != null) onReplay(_durationInSeconds);
   }
@@ -215,11 +215,13 @@ class FlickControlManager extends ChangeNotifier {
 
   /// Seek video to a duration.
   Future<void> seekTo(Duration moment, {bool shouldFireCallback = true}) async {
-    if (_maxDuration != null && moment > _maxDuration) {
-      moment = _maxDuration;
+    Duration _moment = moment;
+    if (_maxDuration != null && _moment > _maxDuration) {
+      _moment = _maxDuration;
     }
-    bool _isForward = _durationInSeconds < moment.inSeconds;
-    await _videoPlayerController.seekTo(moment);
+
+    bool _isForward = _durationInSeconds < _moment.inSeconds;
+    await _videoPlayerController.seekTo(_moment);
 
     if (onSeek != null && shouldFireCallback)
       onSeek(_durationInSeconds, _isForward);
