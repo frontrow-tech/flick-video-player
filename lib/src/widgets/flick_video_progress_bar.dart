@@ -36,7 +36,7 @@ class FlickVideoProgressBar extends StatelessWidget {
       final Offset tapPos = box.globalToLocal(globalPosition);
       final double relative = tapPos.dx / box.size.width;
       final Duration position = _maxduration * relative;
-      controlManager.seekTo(position);
+      controlManager.seekTo(position, isFromControls: true);
     }
 
     return LayoutBuilder(builder: (context, size) {

@@ -70,7 +70,7 @@ class FlickSeekVideoAction extends StatelessWidget {
                   if (seekBackward != null) {
                     seekBackward();
                   } else {
-                    controlManager.seekBackward(duration);
+                    controlManager.seekBackward(duration, isFromControls: true);
                   }
                 },
                 child: Align(
@@ -99,7 +99,7 @@ class FlickSeekVideoAction extends StatelessWidget {
                   if (seekForward != null) {
                     seekForward();
                   } else {
-                    controlManager.seekForward(duration);
+                    controlManager.seekForward(duration, isFromControls: true);
                   }
                 },
                 child: Align(

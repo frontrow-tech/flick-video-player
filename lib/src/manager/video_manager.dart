@@ -131,8 +131,8 @@ class FlickVideoManager extends ChangeNotifier {
       _notify();
     });
 
-    // Dispose the old controller after 5 seconds.
-    Future.delayed(Duration(seconds: 5), () => oldController?.dispose());
+    // Dispose the old controller after 1 seconds.
+    Future.delayed(Duration(seconds: 1), () => oldController?.dispose());
 
     // If movie already ended, restart the movie (Happens when previously used controller is
     // used again).
@@ -205,9 +205,7 @@ class FlickVideoManager extends ChangeNotifier {
         videoPlayerController.value.position.inSeconds >=
             videoPlayerController.value?.buffered[0]?.end?.inSeconds;
 
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _notify();
-    });
+    _notify();
   }
 
   // Video-end handler.

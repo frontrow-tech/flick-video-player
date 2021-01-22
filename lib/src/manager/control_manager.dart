@@ -161,7 +161,7 @@ class FlickControlManager extends ChangeNotifier {
   void replay() async {
     final currentSub = _selectedSubtitle;
     hideSubtitle();
-    await seekTo(Duration(minutes: 0));
+    await seekTo(Duration(minutes: 0), isFromControls: false);
     await play();
     if (currentSub != null) selectSubtitle(subtitleToSelect: currentSub);
     if (onReplay != null) onReplay(_durationInSeconds);
@@ -214,7 +214,7 @@ class FlickControlManager extends ChangeNotifier {
   }
 
   /// Seek video to a duration.
-  Future<void> seekTo(Duration moment, {bool shouldFireCallback = true}) async {
+  Future<void> seekTo(Duration moment, {@required bool isFromControls}) async {
     Duration _moment = moment;
     if (_maxDuration != null && _moment > _maxDuration) {
       _moment = _maxDuration;
@@ -223,23 +223,25 @@ class FlickControlManager extends ChangeNotifier {
     bool _isForward = _durationInSeconds < _moment.inSeconds;
     await _videoPlayerController.seekTo(_moment);
 
-    if (onSeek != null && shouldFireCallback)
+    if (onSeek != null && isFromControls)
       onSeek(_durationInSeconds, _isForward);
   }
 
   /// Seek video forward by the duration.
-  Future<void> seekForward(Duration videoSeekDuration) async {
+  Future<void> seekForward(Duration videoSeekDuration,
+      {@required bool isFromControls}) async {
     _flickManager._handleVideoSeek(forward: true);
     await seekTo(_videoPlayerController.value.position + videoSeekDuration,
-        shouldFireCallback: false);
+        isFromControls: isFromControls);
     if (onForwardTap != null) onForwardTap(_durationInSeconds);
   }
 
   /// Seek video backward by the duration.
-  Future<void> seekBackward(Duration videoSeekDuration) async {
+  Future<void> seekBackward(Duration videoSeekDuration,
+      {@required bool isFromControls}) async {
     _flickManager._handleVideoSeek(forward: false);
     await seekTo(_videoPlayerController.value.position - videoSeekDuration,
-        shouldFireCallback: false);
+        isFromControls: isFromControls);
     if (onForwardTap != null) onBackwardTap(_durationInSeconds);
   }
 
