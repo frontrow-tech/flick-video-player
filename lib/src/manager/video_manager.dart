@@ -205,7 +205,13 @@ class FlickVideoManager extends ChangeNotifier {
         videoPlayerController.value.position.inSeconds >=
             videoPlayerController.value?.buffered[0]?.end?.inSeconds;
 
-    _notify();
+    if (isVideoEnded) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        _notify();
+      });
+    } else {
+      _notify();
+    }
   }
 
   // Video-end handler.
