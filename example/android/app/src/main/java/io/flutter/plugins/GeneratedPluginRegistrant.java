@@ -15,8 +15,8 @@ import io.flutter.embedding.engine.plugins.shim.ShimPluginRegistry;
 public final class GeneratedPluginRegistrant {
   public static void registerWith(@NonNull FlutterEngine flutterEngine) {
     ShimPluginRegistry shimPluginRegistry = new ShimPluginRegistry(flutterEngine);
-      io.adaptant.labs.flutter_windowmanager.FlutterWindowManagerPlugin.registerWith(shimPluginRegistry.registrarFor("io.adaptant.labs.flutter_windowmanager.FlutterWindowManagerPlugin"));
     flutterEngine.getPlugins().add(new io.flutter.plugins.videoplayer.VideoPlayerPlugin());
+      io.adaptant.labs.flutter_windowmanager.FlutterWindowManagerPlugin.registerWith(shimPluginRegistry.registrarFor("io.adaptant.labs.flutter_windowmanager.FlutterWindowManagerPlugin"));
     flutterEngine.getPlugins().add(new creativemaybeno.wakelock.WakelockPlugin());
   }
 }
