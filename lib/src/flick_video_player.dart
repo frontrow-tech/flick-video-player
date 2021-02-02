@@ -25,8 +25,6 @@ class FlickVideoPlayer extends StatefulWidget {
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight
     ],
-    this.wakelockEnabled = true,
-    this.wakelockEnabledFullscreen = true,
     this.overrideOrientations,
   }) : super(key: key);
 
@@ -57,17 +55,9 @@ class FlickVideoPlayer extends StatefulWidget {
   /// Preferred device orientation in full-screen.
   final List<DeviceOrientation> preferredDeviceOrientationFullscreen;
 
-  /// Prevents the screen from turning off automatically.
-  ///
-  /// Use [wakeLockEnabledFullscreen] to manage wakelock for full-screen.
-  final bool wakelockEnabled;
-
   /// Prevents anyone from taking a screenshot or using a screenrecorder on android when the app is in
   /// full screen
   final bool secureContentOnFullScreen;
-
-  /// Prevents the screen from turning off automatically in full-screen.
-  final bool wakelockEnabledFullscreen;
 
   @override
   _FlickVideoPlayerState createState() => _FlickVideoPlayerState();
@@ -87,10 +77,6 @@ class _FlickVideoPlayerState extends State<FlickVideoPlayer> {
     flickManager.flickControlManager.addListener(listener);
     _setSystemUIOverlays();
     _setPreferredOrientation();
-
-    if (widget.wakelockEnabled) {
-      Wakelock.enable();
-    }
 
     super.initState();
   }
@@ -114,13 +100,6 @@ class _FlickVideoPlayerState extends State<FlickVideoPlayer> {
   }
 
   _switchToFullscreen() {
-    /// Disable previous wakelock setting.
-    Wakelock.disable();
-
-    if (widget.wakelockEnabledFullscreen) {
-      Wakelock.enable();
-    }
-
     if (Platform.isAndroid && widget.secureContentOnFullScreen) {
       FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
     }
@@ -189,13 +168,6 @@ class _FlickVideoPlayerState extends State<FlickVideoPlayer> {
   }
 
   _exitFullscreen() {
-    /// Disable previous wakelock setting.
-    Wakelock.disable();
-
-    if (widget.wakelockEnabled) {
-      Wakelock.enable();
-    }
-
     Navigator.of(context, rootNavigator: true).pop();
 
     if (Platform.isAndroid && widget.secureContentOnFullScreen) {
