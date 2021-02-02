@@ -193,7 +193,9 @@ class FlickVideoManager extends ChangeNotifier {
       _wakelockEnabledByListener = true;
     }
 
-    if (_wakelockEnabledByListener && !(videoPlayerValue?.isPlaying ?? false)) {
+    if (_wakelockEnabledByListener &&
+        (!(videoPlayerValue?.isPlaying ?? false) ||
+            !_enableWakelockWhenPlaying)) {
       Wakelock.disable();
       _wakelockEnabledByListener = false;
     }
