@@ -5,6 +5,7 @@ import 'package:flick_video_player/src/subtitles/flick_subtitle.dart';
 import 'package:flutter/material.dart';
 import 'package:subtitle_wrapper_package/data/models/style/subtitle_style.dart';
 import 'package:video_player/video_player.dart';
+import 'package:wakelock/wakelock.dart';
 
 part 'video_manager.dart';
 part 'control_manager.dart';

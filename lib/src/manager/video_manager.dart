@@ -23,6 +23,13 @@ class FlickVideoManager extends ChangeNotifier {
   VideoPlayerController _videoPlayerController;
   bool _mounted = true;
 
+  /// Enable Wakelock when playing
+  bool _enableWakelockWhenPlaying = false;
+
+  bool get enableWakelockWhenPlaying => _enableWakelockWhenPlaying;
+
+  bool _wakelockEnabledByListener = false;
+
   /// Auto-play the video after initialization.
   final bool autoPlay;
 
@@ -64,6 +71,10 @@ class FlickVideoManager extends ChangeNotifier {
   void setAutoInitialize(bool val) {
     autoInitialize = val;
     _notify();
+  }
+
+  void setEnableWakelockWhenPlaying(bool value) {
+    _enableWakelockWhenPlaying = value ?? false;
   }
 
   /// Cancel the current auto player timer with option of playing the next video directly.
@@ -175,6 +186,18 @@ class FlickVideoManager extends ChangeNotifier {
         _flickManager?.flickControlManager?.maxDuration ??
             videoPlayerValue?.duration;
 
+    if (_enableWakelockWhenPlaying &&
+        !_wakelockEnabledByListener &&
+        (videoPlayerValue?.isPlaying ?? false)) {
+      Wakelock.enable();
+      _wakelockEnabledByListener = true;
+    }
+
+    if (_wakelockEnabledByListener && !(videoPlayerValue?.isPlaying ?? false)) {
+      Wakelock.disable();
+      _wakelockEnabledByListener = false;
+    }
+
     // If video position has reached the end, take action for videoEnd.
     if (videoPlayerValue != null &&
         videoPlayerValue.position != null &&
@@ -182,6 +205,10 @@ class FlickVideoManager extends ChangeNotifier {
         (videoPlayerValue.position) >= (_maxDuration)) {
       if (videoPlayerValue?.isPlaying ?? false) {
         _flickManager?.flickControlManager?.pause();
+        if (_wakelockEnabledByListener) {
+          Wakelock.disable();
+          _wakelockEnabledByListener = false;
+        }
       }
       if (!_currentVideoEnded) {
         handleVideoEnd();
