@@ -32,3 +32,4 @@ export './src/controls/flick_portrait_controls.dart';
 export './src/controls/flick_landscape_controls.dart';
 
 export './src/subtitles/flick_subtitle.dart';
+export './src/utils/video_controls_custom_overlay.dart';
