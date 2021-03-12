@@ -38,10 +38,16 @@ class FlickControlManager extends ChangeNotifier {
 
   ValueNotifier<Widget> _customOverlayWidget = ValueNotifier(null);
 
+  ValueNotifier<List<VideoControlsCustomOverlay>> _customOverlays =
+      ValueNotifier(<VideoControlsCustomOverlay>[]);
+
   /// The flag which determines whether the custom overlay widget should be shown or not
   ValueNotifier<bool> get showCustomOverlayWidget => _showCustomOverlayWidget;
 
   ValueNotifier<Widget> get customOverlayWidget => _customOverlayWidget;
+
+  ValueNotifier<List<VideoControlsCustomOverlay>> get customOverlays =>
+      _customOverlays;
 
   /// Is player in full-screen.
   bool get isFullscreen => _isFullscreen;
@@ -81,6 +87,12 @@ class FlickControlManager extends ChangeNotifier {
   void setCustomOverlayWidget({@required Widget widget}) {
     _customOverlayWidget.value = widget ?? null;
     _customOverlayWidget.notifyListeners();
+  }
+
+  void setControlsCustomOverlays(
+      {@required List<VideoControlsCustomOverlay> overlays}) {
+    _customOverlays.value = overlays ?? <VideoControlsCustomOverlay>[];
+    _customOverlays.notifyListeners();
   }
 
   /// Use this method to register the various callbacks if they could not be passed while

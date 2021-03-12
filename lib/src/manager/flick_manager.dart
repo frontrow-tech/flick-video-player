@@ -2,6 +2,7 @@ library flick_manager;
 
 import 'dart:async';
 import 'package:flick_video_player/src/subtitles/flick_subtitle.dart';
+import 'package:flick_video_player/src/utils/video_controls_custom_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:subtitle_wrapper_package/data/models/style/subtitle_style.dart';
 import 'package:video_player/video_player.dart';
