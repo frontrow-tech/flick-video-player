@@ -37,12 +37,12 @@ class FlickNativeVideoPlayer extends StatelessWidget {
       builder: (context, size) {
         double aspectRatio = (size.maxHeight == double.infinity ||
                 size.maxWidth == double.infinity)
-            ? videoPlayerController?.value?.initialized == true
+            ? videoPlayerController?.value?.isInitialized == true
                 ? videoPlayerController?.value?.aspectRatio
                 : aspectRatioWhenLoading
             : size.maxWidth / size.maxHeight;
 
-        return videoPlayerController?.value?.initialized == true
+        return videoPlayerController?.value?.isInitialized == true
             ? SubTitleWrapper(
                 subtitleStyle: SubtitleStyle(
                   textStyle: subtitleStyle.textStyle,

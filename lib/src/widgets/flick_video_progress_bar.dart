@@ -57,7 +57,7 @@ class FlickVideoProgressBar extends StatelessWidget {
           ),
         ),
         onHorizontalDragStart: (DragStartDetails details) {
-          if (!videoPlayerValue.initialized) {
+          if (!videoPlayerValue.isInitialized) {
             return;
           }
           // _controllerWasPlaying = flickControlManager.isPlaying;
@@ -70,7 +70,7 @@ class FlickVideoProgressBar extends StatelessWidget {
           }
         },
         onHorizontalDragUpdate: (DragUpdateDetails details) {
-          if (!videoPlayerValue.initialized) {
+          if (!videoPlayerValue.isInitialized) {
             return;
           }
           seekToRelativePosition(details.globalPosition);
@@ -87,7 +87,7 @@ class FlickVideoProgressBar extends StatelessWidget {
           }
         },
         onTapDown: (TapDownDetails details) {
-          if (!videoPlayerValue.initialized) {
+          if (!videoPlayerValue.isInitialized) {
             return;
           }
           seekToRelativePosition(details.globalPosition);
@@ -137,7 +137,7 @@ class _ProgressBarPainter extends CustomPainter {
       ),
       backgroundPaint,
     );
-    if (value?.initialized == false) {
+    if (value?.isInitialized == false) {
       return;
     }
 

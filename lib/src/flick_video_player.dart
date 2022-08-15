@@ -128,7 +128,7 @@ class _FlickVideoPlayerState extends State<FlickVideoPlayer> {
         return true;
       },
       child: Scaffold(
-        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomInset: false,
         body: Container(
           alignment: Alignment.center,
           color: Colors.black,
